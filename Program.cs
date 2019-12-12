@@ -17,20 +17,21 @@
 
 using System;
 
-namespace welcome_to_jurassic_park
+namespace welcome_to_jurassic_paWrk
 {
   class Program
   {
+    // static List<Dinosaurs>
     static void Main(string[] args)
     {
       Console.WriteLine("Welcome to Jurassic Park!");
       Console.WriteLine("Hold onto your butts.");
-      var input = "";
-      while (input != "quit")
-      {
-        Console.WriteLine();
-        Console.WriteLine();
-      }
+      //   var input = "";
+      //   while (input != "quit")
+      //   {
+      //     Console.WriteLine();
+      //     Console.WriteLine();
+      //   }
     }
   }
 }

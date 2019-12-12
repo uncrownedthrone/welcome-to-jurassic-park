@@ -10,10 +10,10 @@
 // DONE store dinos in List<Dinosaur>
 // DONE let user view all dinos in park
 // DONE let user add a new dino
+// DONE let user remove a dino by name
+// DONE let user view all dinos ordered by DateAcquired
+// DONE let user transfer a dino to a new pen
 
-// TODO let user view all dinos ordered by DateAcquired
-// TODO let user remove a dino by name
-// TODO let user transfer a dino to a new pen
 // TODO view the 3 heaviest dinos
 // TODO let user view how many dinos of each DietType
 
@@ -108,7 +108,12 @@ namespace welcome_to_jurassic_park
     }
     static void TransferDinoPen()
     {
-      Console.WriteLine("TransferDinoPen selected");
+      Console.WriteLine("What's the name of the dinosaur you want to move?");
+      var dinoName = Console.ReadLine();
+      Console.WriteLine($"Which enclosure (1, 2, 3, or 4) would you like to put {dinoName} in?");
+      var dinoEnclosure = Console.ReadLine();
+      var transferDino = AllDinosaurs.FirstOrDefault(dino => dino.Name.ToLower() == dinoName.ToLower());
+      transferDino.EnclosureNumber = int.Parse(dinoEnclosure);
     }
     static void GetHeavyDinos()
     {
@@ -173,5 +178,3 @@ namespace welcome_to_jurassic_park
     }
   }
 }
-
-// Console.WriteLine("Hold onto your butts.");

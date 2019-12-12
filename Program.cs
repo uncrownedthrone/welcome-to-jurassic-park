@@ -1,10 +1,5 @@
 ﻿// DONE add intro
-// DONE add properties for each dino:
-//      Name
-//      DietType = carnivore or herbivore
-//      DateAcquired = Default
-//      Weight = in lbs
-//      EnclosureNumber = pen dino is in
+// DONE add properties for each dino:s
 // DONE let user quit program
 // DONE store list of dinos in park
 // DONE store dinos in List<Dinosaur>
@@ -13,9 +8,9 @@
 // DONE let user remove a dino by name
 // DONE let user view all dinos ordered by DateAcquired
 // DONE let user transfer a dino to a new pen
+// DONE let user view how many dinos of each DietType
 
 // TODO view the 3 heaviest dinos
-// TODO let user view how many dinos of each DietType
 
 using System;
 using System.Collections.Generic;
@@ -33,35 +28,34 @@ namespace welcome_to_jurassic_park
       AllDinosaurs.AddRange(new List<Dinosaurs> {
         new Dinosaurs {
         Name = "Velociraptor",
-        DietType = "Carnivore",
+        DietType = "carnivore",
         DateAcquired = DateTime.Now,
-        Weight = 40,
+        Weight = 400,
         EnclosureNumber = 1
       },
         new Dinosaurs {
         Name = "Brontosaurus",
-        DietType = "Herbivore",
+        DietType = "herbivore",
         DateAcquired = DateTime.Now,
-        Weight = 30,
+        Weight = 300,
         EnclosureNumber = 2
       },
         new Dinosaurs {
         Name = "T-Rex",
-        DietType = "Carnivore",
+        DietType = "carnivore",
         DateAcquired = DateTime.Now,
-        Weight = 20,
+        Weight = 200,
         EnclosureNumber = 3
       },
         new Dinosaurs {
         Name = "Triceratops",
-        DietType = "Herbivore",
+        DietType = "herbivore",
         DateAcquired = DateTime.Now,
-        Weight = 10,
+        Weight = 100,
         EnclosureNumber = 4
       }
       });
     }
-
     static void ViewAllDinos(IEnumerable<Dinosaurs> AllDinosaurs)
     {
       Console.WriteLine("Here are all of the dinosaurs in Jurassic Park");
@@ -72,7 +66,6 @@ namespace welcome_to_jurassic_park
         Console.WriteLine($"We got her on {Dino.DateAcquired}. She weighs {Dino.Weight}lbs and is in Enclosure {Dino.EnclosureNumber}");
       }
     }
-
     static void DisplayAll()
     {
       ViewAllDinos(AllDinosaurs);
@@ -115,13 +108,17 @@ namespace welcome_to_jurassic_park
       var transferDino = AllDinosaurs.FirstOrDefault(dino => dino.Name.ToLower() == dinoName.ToLower());
       transferDino.EnclosureNumber = int.Parse(dinoEnclosure);
     }
+    static void GetDinoDiets()
+    {
+
+      onsole.WriteLine("Which diet (carnivore/herbivore) would you like a summary of?");
+      var dinoDietType = Console.ReadLine();
+      var dinoDiets = AllDinosaurs.Count(dino => dino.DietType == dinoDietType);
+      Console.WriteLine($"We have {dinoDiets} {dinoDietType}s");
+    }
     static void GetHeavyDinos()
     {
       Console.WriteLine("GetHeavyDinos selected");
-    }
-    static void GetDinoDiets()
-    {
-      Console.WriteLine("GetDinoDiets selected");
     }
     static void UnknownCommand()
     {
@@ -131,7 +128,6 @@ namespace welcome_to_jurassic_park
     {
       Console.WriteLine("You survived? I'm impressed. No idea when the helicopter is coming though...");
     }
-
 
     static void Main(string[] args)
     {
@@ -158,13 +154,13 @@ namespace welcome_to_jurassic_park
         {
           TransferDinoPen();
         }
-        else if (input == "heavy")
-        {
-          GetHeavyDinos();
-        }
         else if (input == "diet")
         {
           GetDinoDiets();
+        }
+        else if (input == "heavy")
+        {
+          GetHeavyDinos();
         }
         else if (input == "quit")
         {

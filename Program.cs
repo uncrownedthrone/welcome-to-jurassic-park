@@ -9,9 +9,9 @@
 // DONE store list of dinos in park
 // DONE store dinos in List<Dinosaur>
 // DONE let user view all dinos in park
+// DONE let user add a new dino
 
 // TODO let user view all dinos ordered by DateAcquired
-// TODO let user add a new dino
 // TODO let user remove a dino by name
 // TODO let user transfer a dino to a new pen
 // TODO view the 3 heaviest dinos
@@ -27,10 +27,6 @@ namespace welcome_to_jurassic_park
   {
 
     static List<Dinosaurs> AllDinosaurs = new List<Dinosaurs>();
-    static void StartTour()
-    {
-      Console.WriteLine("StartTour selected");
-    }
 
     static void SeedPark()
     {
@@ -58,7 +54,7 @@ namespace welcome_to_jurassic_park
       },
         new Dinosaurs {
         Name = "Triceratops",
-        DietType = "Carnivore",
+        DietType = "Herbivore",
         DateAcquired = DateTime.Now,
         Weight = 10,
         EnclosureNumber = 4
@@ -73,7 +69,7 @@ namespace welcome_to_jurassic_park
       foreach (var Dino in AllDinosaurs)
       {
         Console.WriteLine($"We have a {Dino.Name}, which is a {Dino.DietType}.");
-        Console.WriteLine($"We got her on {Dino.DateAcquired}. She weighs {Dino.Weight} and is in Enclosure {Dino.EnclosureNumber}");
+        Console.WriteLine($"We got her on {Dino.DateAcquired}. She weighs {Dino.Weight}lbs and is in Enclosure {Dino.EnclosureNumber}");
       }
     }
 
@@ -81,31 +77,50 @@ namespace welcome_to_jurassic_park
     {
       ViewAllDinos(AllDinosaurs);
     }
-
     static void AddDinosaur()
     {
+      Console.WriteLine("What type of dinosaur are you adding?");
+      var dinoName = Console.ReadLine();
+      Console.WriteLine($"Is {dinoName} a carnivore or herbivore?");
+      var dinoDietType = Console.ReadLine();
+      Console.WriteLine($"How many pounds does {dinoName} weigh?");
+      var dinoWeight = Console.ReadLine();
+      Console.WriteLine($"What enclosure will {dinoName} be in: 1, 2, 3, 4");
+      var dinoEnclosureNumber = Console.ReadLine();
+
+      var dino = new Dinosaurs();
+      dino.Name = dinoName;
+      dino.DietType = dinoDietType;
+      dino.DateAcquired = DateTime.Now;
+      dino.Weight = int.Parse(dinoWeight);
+      dino.EnclosureNumber = int.Parse(dinoEnclosureNumber);
+
+
+      AllDinosaurs.Add(dino);
+
       Console.WriteLine("AddDinosaur was selected");
     }
 
-    static void SearchAllDinos()
+    static void RemoveDinoFromList()
     {
-      Console.WriteLine("SearchAllDinos selected");
+      Console.WriteLine("RemoveDinoFromList selected");
     }
-
-    static void UpdateDinoList()
+    static void TransferDinoPen()
     {
-      Console.WriteLine("UpdateDinoList selected");
+      Console.WriteLine("TransferDinoPen selected");
     }
-
-    static void DeleteDinoFromList()
+    static void GetHeavyDinos()
     {
-      Console.WriteLine("DeleteDinoFromList selected");
+      Console.WriteLine("GetHeavyDinos selected");
+    }
+    static void GetDinoDiets()
+    {
+      Console.WriteLine("GetDinoDiets selected");
     }
     static void UnknownCommand()
     {
       Console.WriteLine("I don't understand that, try another command.");
     }
-
     static void QuitProgram()
     {
       Console.WriteLine("You survived? I'm impressed. No idea when the helicopter is coming though...");
@@ -115,18 +130,13 @@ namespace welcome_to_jurassic_park
     static void Main(string[] args)
     {
       SeedPark();
-      Console.WriteLine("Welcome to Jurassic Park!");
+      Console.WriteLine("Welcome to Jurassic Park! Hold onto your butts.");
       var input = "";
       while (input != "quit")
       {
-        Console.WriteLine("Would you like to take the tour?");
-        Console.WriteLine("Commands |yes|view|search|update|delete|quit|");
+        Console.WriteLine("Available Commands - |View|Add|Remove|Transfer|Heavy|Diet|Quit|");
         input = Console.ReadLine().ToLower();
-        if (input == "yes")
-        {
-          StartTour();
-        }
-        else if (input == "view")
+        if (input == "view")
         {
           DisplayAll();
         }
@@ -134,17 +144,21 @@ namespace welcome_to_jurassic_park
         {
           AddDinosaur();
         }
-        else if (input == "search")
+        else if (input == "remove")
         {
-          // SearchAllDinos();
+          RemoveDinoFromList();
         }
-        else if (input == "update")
+        else if (input == "transfer")
         {
-          // UpdateDinoList();
+          TransferDinoPen();
         }
-        else if (input == "delete")
+        else if (input == "heavy")
         {
-          // DeleteDinoFromList();
+          GetHeavyDinos();
+        }
+        else if (input == "diet")
+        {
+          GetDinoDiets();
         }
         else if (input == "quit")
         {

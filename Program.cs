@@ -8,7 +8,7 @@
 // DONE let user quit program
 // DONE store list of dinos in park
 // DONE store dinos in List<Dinosaur>
-// TODO let user view all dinos in park
+// DONE let user view all dinos in park
 
 // TODO let user view all dinos ordered by DateAcquired
 // TODO let user add a new dino

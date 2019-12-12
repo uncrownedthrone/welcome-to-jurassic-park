@@ -9,8 +9,7 @@
 // DONE let user view all dinos ordered by DateAcquired
 // DONE let user transfer a dino to a new pen
 // DONE let user view how many dinos of each DietType
-
-// TODO view the 3 heaviest dinos
+// DONE view the 3 heaviest dinos
 
 using System;
 using System.Collections.Generic;
@@ -111,14 +110,15 @@ namespace welcome_to_jurassic_park
     static void GetDinoDiets()
     {
 
-      onsole.WriteLine("Which diet (carnivore/herbivore) would you like a summary of?");
+      Console.WriteLine("Which diet (carnivore/herbivore) would you like a summary of?");
       var dinoDietType = Console.ReadLine();
       var dinoDiets = AllDinosaurs.Count(dino => dino.DietType == dinoDietType);
       Console.WriteLine($"We have {dinoDiets} {dinoDietType}s");
     }
     static void GetHeavyDinos()
     {
-      Console.WriteLine("GetHeavyDinos selected");
+      Console.WriteLine("These are the three heaviest dinosaurs.");
+      ViewAllDinos(AllDinosaurs.OrderByDescending(dino => dino.Weight).Take(3));
     }
     static void UnknownCommand()
     {

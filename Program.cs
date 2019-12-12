@@ -100,10 +100,11 @@ namespace welcome_to_jurassic_park
 
       Console.WriteLine("AddDinosaur was selected");
     }
-
     static void RemoveDinoFromList()
     {
-      Console.WriteLine("RemoveDinoFromList selected");
+      Console.WriteLine("What is the name of the dinosaur you want to remove?");
+      var dinoName = Console.ReadLine();
+      AllDinosaurs.RemoveAll(dino => dino.Name == dinoName);
     }
     static void TransferDinoPen()
     {

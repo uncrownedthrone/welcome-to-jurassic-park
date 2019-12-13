@@ -134,6 +134,12 @@ namespace welcome_to_jurassic_park
     {
       SeedPark();
       Console.WriteLine("Welcome to Jurassic Park! Hold onto your butts.");
+      Console.WriteLine("               __");
+      Console.WriteLine("              / _)");
+      Console.WriteLine("       .-^^^-/ /");
+      Console.WriteLine("    __/       /");
+      Console.WriteLine("   <__.|_|-|_|");
+      Console.WriteLine("                   ");
       var input = "";
       while (input != "quit")
       {

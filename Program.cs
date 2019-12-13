@@ -9,8 +9,7 @@
 // DONE let user transfer a dino to a new pen
 // DONE let user view how many dinos of each DietType
 // DONE view the 3 heaviest dinos
-
-// TODO let user view all dinos in park
+// DONE let user view all dinos in park
 
 using System;
 using System.Collections.Generic;
@@ -88,10 +87,7 @@ namespace welcome_to_jurassic_park
       dino.Weight = int.Parse(dinoWeight);
       dino.EnclosureNumber = int.Parse(dinoEnclosureNumber);
 
-
       AllDinosaurs.Add(dino);
-
-      Console.WriteLine("AddDinosaur was selected");
     }
     static void RemoveDinoFromList()
     {

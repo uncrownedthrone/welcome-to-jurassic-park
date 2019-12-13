@@ -3,13 +3,14 @@
 // DONE let user quit program
 // DONE store list of dinos in park
 // DONE store dinos in List<Dinosaur>
-// DONE let user view all dinos in park
 // DONE let user add a new dino
 // DONE let user remove a dino by name
 // DONE let user view all dinos ordered by DateAcquired
 // DONE let user transfer a dino to a new pen
 // DONE let user view how many dinos of each DietType
 // DONE view the 3 heaviest dinos
+
+// TODO let user view all dinos in park
 
 using System;
 using System.Collections.Generic;

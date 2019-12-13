@@ -29,28 +29,28 @@ namespace welcome_to_jurassic_park
         new Dinosaurs {
         Name = "Velociraptor",
         DietType = "carnivore",
-        DateAcquired = DateTime.Now,
+        DateAcquired = DateTime.Parse("12/2/1990"),
         Weight = 400,
         EnclosureNumber = 1
       },
         new Dinosaurs {
         Name = "Brontosaurus",
         DietType = "herbivore",
-        DateAcquired = DateTime.Now,
+        DateAcquired = DateTime.Parse("12/1/2018"),
         Weight = 300,
         EnclosureNumber = 2
       },
         new Dinosaurs {
         Name = "T-Rex",
         DietType = "carnivore",
-        DateAcquired = DateTime.Now,
+        DateAcquired = DateTime.Parse("12/2/2019"),
         Weight = 200,
         EnclosureNumber = 3
       },
         new Dinosaurs {
         Name = "Triceratops",
         DietType = "herbivore",
-        DateAcquired = DateTime.Now,
+        DateAcquired = DateTime.Parse("12/3/2000"),
         Weight = 100,
         EnclosureNumber = 4
       }
@@ -60,7 +60,7 @@ namespace welcome_to_jurassic_park
     {
       Console.WriteLine("Here are all of the dinosaurs in Jurassic Park");
       Console.WriteLine("----------");
-      foreach (var Dino in AllDinosaurs)
+      foreach (var Dino in AllDinosaurs.OrderBy(dino => dino.DateAcquired))
       {
         Console.WriteLine($"We have a {Dino.Name}, which is a {Dino.DietType}.");
         Console.WriteLine($"We got her on {Dino.DateAcquired}. She weighs {Dino.Weight}lbs and is in Enclosure {Dino.EnclosureNumber}");

@@ -8,14 +8,14 @@ namespace welcome_to_jurassic_park
   {
     static DatabaseContext Db = new DatabaseContext();
 
-    static void DisplayListOfDinos(IEnumerable<Dinosaurs> dinos)
+    static void DisplayListOfDinos(IEnumerable<Dinosaurs> Dinosaurs)
     {
       Console.WriteLine("Here are all of the dinosaurs in Jurassic Park");
       Console.WriteLine("----------");
-      foreach (var dino in dinos)
+      foreach (var Dino in Dinosaurs)
       {
-        Console.WriteLine($"We have a {dino.Name}, which is a {dino.DietType}.");
-        Console.WriteLine($"We got her on {dino.DateAcquired}. She weighs {dino.Weight}lbs and is in Enclosure {dino.EnclosureNumber}");
+        Console.WriteLine($"We have a {Dino.Name}, which is a {Dino.DietType}.");
+        Console.WriteLine($"We got her on {Dino.DateAcquired}. She weighs {Dino.Weight}lbs and is in Enclosure {Dino.EnclosureNumber}");
       }
     }
     static void DisplayAll()
@@ -81,7 +81,6 @@ namespace welcome_to_jurassic_park
     {
       Console.WriteLine("I don't understand that, try another command.");
     }
-
     static void HatchDinosaur()
     {
       string[] names = { "Malcolm", "Muldoon", "Grant", "Ellie",
@@ -113,7 +112,6 @@ namespace welcome_to_jurassic_park
 
       Db.SaveChanges();
     }
-
     static void NeedsASheep()
     {
       Console.WriteLine("Jurassic Park's lightest carnivore is:");

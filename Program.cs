@@ -1,17 +1,4 @@
-﻿// DONE add intro
-// DONE add properties for each dino:s
-// DONE let user quit program
-// DONE store list of dinos in park
-// DONE store dinos in List<Dinosaur>
-// DONE let user add a new dino
-// DONE let user remove a dino by name
-// DONE let user view all dinos ordered by DateAcquired
-// DONE let user transfer a dino to a new pen
-// DONE let user view how many dinos of each DietType
-// DONE view the 3 heaviest dinos
-// DONE let user view all dinos in park
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,41 +7,42 @@ namespace welcome_to_jurassic_park
   class Program
   {
 
-    static List<Dinosaurs> AllDinosaurs = new List<Dinosaurs>();
+    // static List<Dinosaurs> AllDinosaurs = new List<Dinosaurs>();
+    static DatabaseContext Db = new DatabaseContext();
 
-    static void SeedPark()
-    {
-      AllDinosaurs.AddRange(new List<Dinosaurs> {
-        new Dinosaurs {
-        Name = "Velociraptor",
-        DietType = "carnivore",
-        DateAcquired = DateTime.Parse("12/2/1990"),
-        Weight = 400,
-        EnclosureNumber = 1
-      },
-        new Dinosaurs {
-        Name = "Brontosaurus",
-        DietType = "herbivore",
-        DateAcquired = DateTime.Parse("12/1/2018"),
-        Weight = 300,
-        EnclosureNumber = 2
-      },
-        new Dinosaurs {
-        Name = "T-Rex",
-        DietType = "carnivore",
-        DateAcquired = DateTime.Parse("12/2/2019"),
-        Weight = 200,
-        EnclosureNumber = 3
-      },
-        new Dinosaurs {
-        Name = "Triceratops",
-        DietType = "herbivore",
-        DateAcquired = DateTime.Parse("12/3/2000"),
-        Weight = 100,
-        EnclosureNumber = 4
-      }
-      });
-    }
+    // static void SeedPark()
+    // {
+    //   AllDinosaurs.AddRange(new List<Dinosaurs> {
+    //     new Dinosaurs {
+    //     Name = "Velociraptor",
+    //     DietType = "carnivore",
+    //     DateAcquired = DateTime.Parse("12/2/1990"),
+    //     Weight = 400,
+    //     EnclosureNumber = 1
+    //   },
+    //     new Dinosaurs {
+    //     Name = "Brontosaurus",
+    //     DietType = "herbivore",
+    //     DateAcquired = DateTime.Parse("12/1/2018"),
+    //     Weight = 300,
+    //     EnclosureNumber = 2
+    //   },
+    //     new Dinosaurs {
+    //     Name = "T-Rex",
+    //     DietType = "carnivore",
+    //     DateAcquired = DateTime.Parse("12/2/2019"),
+    //     Weight = 200,
+    //     EnclosureNumber = 3
+    //   },
+    //     new Dinosaurs {
+    //     Name = "Triceratops",
+    //     DietType = "herbivore",
+    //     DateAcquired = DateTime.Parse("12/3/2000"),
+    //     Weight = 100,
+    //     EnclosureNumber = 4
+    //   }
+    //   });
+
     static void ViewAllDinos(IEnumerable<Dinosaurs> AllDinosaurs)
     {
       Console.WriteLine("Here are all of the dinosaurs in Jurassic Park");
@@ -67,7 +55,7 @@ namespace welcome_to_jurassic_park
     }
     static void DisplayAll()
     {
-      ViewAllDinos(AllDinosaurs);
+      ViewAllDinos(Db.Dinosaurs);
     }
     static void AddDinosaur()
     {
@@ -87,13 +75,19 @@ namespace welcome_to_jurassic_park
       dino.Weight = int.Parse(dinoWeight);
       dino.EnclosureNumber = int.Parse(dinoEnclosureNumber);
 
-      AllDinosaurs.Add(dino);
+      Db.Dinosaurs.Add(dino);
+      Db.SaveChanges();
     }
     static void RemoveDinoFromList()
     {
       Console.WriteLine("What is the name of the dinosaur you want to remove?");
       var dinoName = Console.ReadLine();
-      AllDinosaurs.RemoveAll(dino => dino.Name == dinoName);
+      var removeDino = Db.Dinosaurs.FirstOrDefault(dino => dino.Name == dinoName);
+      if (removeDino != null)
+      {
+        Db.Dinosaurs.Remove(removeDino);
+        Db.SaveChanges();
+      }
     }
     static void TransferDinoPen()
     {
@@ -101,21 +95,22 @@ namespace welcome_to_jurassic_park
       var dinoName = Console.ReadLine();
       Console.WriteLine($"Which enclosure (1, 2, 3, or 4) would you like to put {dinoName} in?");
       var dinoEnclosure = Console.ReadLine();
-      var transferDino = AllDinosaurs.FirstOrDefault(dino => dino.Name.ToLower() == dinoName.ToLower());
+      var transferDino = Db.Dinosaurs.FirstOrDefault(dino => dino.Name.ToLower() == dinoName.ToLower());
       transferDino.EnclosureNumber = int.Parse(dinoEnclosure);
+      Db.SaveChanges();
     }
     static void GetDinoDiets()
     {
 
       Console.WriteLine("Which diet (carnivore/herbivore) would you like a summary of?");
       var dinoDietType = Console.ReadLine();
-      var dinoDiets = AllDinosaurs.Count(dino => dino.DietType == dinoDietType);
+      var dinoDiets = Db.Dinosaurs.Count(dino => dino.DietType == dinoDietType);
       Console.WriteLine($"We have {dinoDiets} {dinoDietType}s");
     }
     static void GetHeavyDinos()
     {
       Console.WriteLine("These are the three heaviest dinosaurs.");
-      ViewAllDinos(AllDinosaurs.OrderByDescending(dino => dino.Weight).Take(3));
+      ViewAllDinos(Db.Dinosaurs.OrderByDescending(dino => dino.Weight).Take(3));
     }
     static void UnknownCommand()
     {
@@ -128,7 +123,6 @@ namespace welcome_to_jurassic_park
 
     static void Main(string[] args)
     {
-      SeedPark();
       Console.WriteLine("Welcome to Jurassic Park! Hold onto your butts.");
       Console.WriteLine("               __");
       Console.WriteLine("              / _)");

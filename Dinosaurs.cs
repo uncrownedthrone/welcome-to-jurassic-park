@@ -2,8 +2,9 @@ using System;
 
 namespace welcome_to_jurassic_park
 {
-  public class JurassicParkDb
+  public class Dinosaurs
   {
+    public int Id { get; set; }
     public string Name { get; set; }
     public string DietType { get; set; }
     public DateTime DateAcquired { get; set; }

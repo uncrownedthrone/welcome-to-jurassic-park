@@ -7,7 +7,7 @@ namespace welcome_to_jurassic_park
   public partial class DatabaseContext : DbContext
   {
 
-    public DbSet<JurassicParkDb> JurassicPark { get; set; }
+    public DbSet<Dinosaurs> Dinosaurs { get; set; }
     public DatabaseContext()
     {
     }

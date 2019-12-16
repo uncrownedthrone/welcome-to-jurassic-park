@@ -2,7 +2,7 @@ using System;
 
 namespace welcome_to_jurassic_park
 {
-  public class Dinosaurs
+  public class JurassicParkDb
   {
     public string Name { get; set; }
     public string DietType { get; set; }

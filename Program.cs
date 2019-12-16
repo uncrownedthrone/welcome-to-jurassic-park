@@ -6,56 +6,21 @@ namespace welcome_to_jurassic_park
 {
   class Program
   {
-
-    // static List<Dinosaurs> AllDinosaurs = new List<Dinosaurs>();
     static DatabaseContext Db = new DatabaseContext();
 
-    // static void SeedPark()
-    // {
-    //   AllDinosaurs.AddRange(new List<Dinosaurs> {
-    //     new Dinosaurs {
-    //     Name = "Velociraptor",
-    //     DietType = "carnivore",
-    //     DateAcquired = DateTime.Parse("12/2/1990"),
-    //     Weight = 400,
-    //     EnclosureNumber = 1
-    //   },
-    //     new Dinosaurs {
-    //     Name = "Brontosaurus",
-    //     DietType = "herbivore",
-    //     DateAcquired = DateTime.Parse("12/1/2018"),
-    //     Weight = 300,
-    //     EnclosureNumber = 2
-    //   },
-    //     new Dinosaurs {
-    //     Name = "T-Rex",
-    //     DietType = "carnivore",
-    //     DateAcquired = DateTime.Parse("12/2/2019"),
-    //     Weight = 200,
-    //     EnclosureNumber = 3
-    //   },
-    //     new Dinosaurs {
-    //     Name = "Triceratops",
-    //     DietType = "herbivore",
-    //     DateAcquired = DateTime.Parse("12/3/2000"),
-    //     Weight = 100,
-    //     EnclosureNumber = 4
-    //   }
-    //   });
-
-    static void ViewAllDinos(IEnumerable<Dinosaurs> AllDinosaurs)
+    static void DisplayListOfDinos(IEnumerable<Dinosaurs> dinos)
     {
       Console.WriteLine("Here are all of the dinosaurs in Jurassic Park");
       Console.WriteLine("----------");
-      foreach (var Dino in AllDinosaurs.OrderBy(dino => dino.DateAcquired))
+      foreach (var dino in dinos)
       {
-        Console.WriteLine($"We have a {Dino.Name}, which is a {Dino.DietType}.");
-        Console.WriteLine($"We got her on {Dino.DateAcquired}. She weighs {Dino.Weight}lbs and is in Enclosure {Dino.EnclosureNumber}");
+        Console.WriteLine($"We have a {dino.Name}, which is a {dino.DietType}.");
+        Console.WriteLine($"We got her on {dino.DateAcquired}. She weighs {dino.Weight}lbs and is in Enclosure {dino.EnclosureNumber}");
       }
     }
     static void DisplayAll()
     {
-      ViewAllDinos(Db.Dinosaurs);
+      DisplayListOfDinos(Db.Dinosaurs);
     }
     static void AddDinosaur()
     {
@@ -110,11 +75,50 @@ namespace welcome_to_jurassic_park
     static void GetHeavyDinos()
     {
       Console.WriteLine("These are the three heaviest dinosaurs.");
-      ViewAllDinos(Db.Dinosaurs.OrderByDescending(dino => dino.Weight).Take(3));
+      DisplayListOfDinos(Db.Dinosaurs.OrderByDescending(dino => dino.Weight).Take(3));
     }
     static void UnknownCommand()
     {
       Console.WriteLine("I don't understand that, try another command.");
+    }
+
+    static void HatchDinosaur()
+    {
+      string[] names = { "Malcolm", "Muldoon", "Grant", "Ellie",
+                          "Hammond", "Tim", "Lex", "Nedry",
+                          "Dodgson", "Wu", "Arnold"};
+
+      string[] diet = { "carnivore", "herbivore" };
+      Console.WriteLine("The egg is incubating...");
+
+      var dino = new Dinosaurs();
+      Random random = new Random();
+      dino.Name = names[random.Next(0, 10)];
+      dino.DietType = diet[random.Next(0, 2)];
+      dino.DateAcquired = DateTime.Now;
+      dino.Weight = random.Next(0, 1000);
+      dino.EnclosureNumber = 1;
+
+      Console.WriteLine($"The newly hatched dinosaur is named {dino.Name}. She weighs {dino.Weight}lbs and is a {dino.DietType}!");
+
+      Db.Dinosaurs.Add(dino);
+      Db.SaveChanges();
+    }
+    static void ReleaseEnclosure()
+    {
+      Console.WriteLine("Which enclosure would you like to release?");
+      var dinoEnclosureNumber = Console.ReadLine();
+      var releaseDino = Db.Dinosaurs.FirstOrDefault(dino => dino.EnclosureNumber == int.Parse(dinoEnclosureNumber));
+      releaseDino.EnclosureNumber = default;
+
+      Db.SaveChanges();
+    }
+
+    static void NeedsASheep()
+    {
+      Console.WriteLine("Jurassic Park's lightest carnivore is:");
+      DisplayListOfDinos(Db.Dinosaurs.OrderBy(dino => dino.DietType).ThenBy(dino => dino.Weight).Take(1));
+      Db.SaveChanges();
     }
     static void QuitProgram()
     {
@@ -133,7 +137,7 @@ namespace welcome_to_jurassic_park
       var input = "";
       while (input != "quit")
       {
-        Console.WriteLine("Available Commands - |View|Add|Remove|Transfer|Heavy|Diet|Quit|");
+        Console.WriteLine("Available Commands - |View|Add|Remove|Transfer|Heavy|Hatch|Sheep|Release|Diet|Quit|");
         input = Console.ReadLine().ToLower();
         if (input == "view")
         {
@@ -158,6 +162,18 @@ namespace welcome_to_jurassic_park
         else if (input == "heavy")
         {
           GetHeavyDinos();
+        }
+        else if (input == "release")
+        {
+          ReleaseEnclosure();
+        }
+        else if (input == "hatch")
+        {
+          HatchDinosaur();
+        }
+        else if (input == "sheep")
+        {
+          NeedsASheep();
         }
         else if (input == "quit")
         {

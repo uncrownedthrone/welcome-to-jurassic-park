@@ -10,8 +10,8 @@ using welcome_to_jurassic_park;
 namespace welcome_to_jurassic_park.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20191216221508_AddedJurassicParkTable")]
-    partial class AddedJurassicParkTable
+    [Migration("20191217141735_First")]
+    partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,7 +45,7 @@ namespace welcome_to_jurassic_park.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Dinosaurs");
+                    b.ToTable("JurassicParkDb");
                 });
 #pragma warning restore 612, 618
         }

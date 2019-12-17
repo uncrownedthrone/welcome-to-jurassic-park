@@ -4,12 +4,12 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace welcome_to_jurassic_park.Migrations
 {
-    public partial class AddedJurassicParkTable : Migration
+    public partial class First : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Dinosaurs",
+                name: "JurassicParkDb",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -22,14 +22,14 @@ namespace welcome_to_jurassic_park.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Dinosaurs", x => x.Id);
+                    table.PrimaryKey("PK_JurassicParkDb", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Dinosaurs");
+                name: "JurassicParkDb");
         }
     }
 }

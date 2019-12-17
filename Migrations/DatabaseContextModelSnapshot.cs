@@ -43,7 +43,7 @@ namespace welcome_to_jurassic_park.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Dinosaurs");
+                    b.ToTable("JurassicParkDb");
                 });
 #pragma warning restore 612, 618
         }

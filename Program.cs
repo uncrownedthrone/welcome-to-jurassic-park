@@ -20,7 +20,7 @@ namespace welcome_to_jurassic_park
     }
     static void DisplayAll()
     {
-      DisplayListOfDinos(Db.Dinosaurs);
+      DisplayListOfDinos(Db.JurassicParkDb);
     }
     static void AddDinosaur()
     {
@@ -40,17 +40,17 @@ namespace welcome_to_jurassic_park
       dino.Weight = int.Parse(dinoWeight);
       dino.EnclosureNumber = int.Parse(dinoEnclosureNumber);
 
-      Db.Dinosaurs.Add(dino);
+      Db.JurassicParkDb.Add(dino);
       Db.SaveChanges();
     }
     static void RemoveDinoFromList()
     {
       Console.WriteLine("What is the name of the dinosaur you want to remove?");
       var dinoName = Console.ReadLine();
-      var removeDino = Db.Dinosaurs.FirstOrDefault(dino => dino.Name == dinoName);
+      var removeDino = Db.JurassicParkDb.FirstOrDefault(dino => dino.Name == dinoName);
       if (removeDino != null)
       {
-        Db.Dinosaurs.Remove(removeDino);
+        Db.JurassicParkDb.Remove(removeDino);
         Db.SaveChanges();
       }
     }
@@ -60,7 +60,7 @@ namespace welcome_to_jurassic_park
       var dinoName = Console.ReadLine();
       Console.WriteLine($"Which enclosure (1, 2, 3, or 4) would you like to put {dinoName} in?");
       var dinoEnclosure = Console.ReadLine();
-      var transferDino = Db.Dinosaurs.FirstOrDefault(dino => dino.Name.ToLower() == dinoName.ToLower());
+      var transferDino = Db.JurassicParkDb.FirstOrDefault(dino => dino.Name.ToLower() == dinoName.ToLower());
       transferDino.EnclosureNumber = int.Parse(dinoEnclosure);
       Db.SaveChanges();
     }
@@ -69,13 +69,13 @@ namespace welcome_to_jurassic_park
 
       Console.WriteLine("Which diet (carnivore/herbivore) would you like a summary of?");
       var dinoDietType = Console.ReadLine();
-      var dinoDiets = Db.Dinosaurs.Count(dino => dino.DietType == dinoDietType);
+      var dinoDiets = Db.JurassicParkDb.Count(dino => dino.DietType == dinoDietType);
       Console.WriteLine($"We have {dinoDiets} {dinoDietType}s");
     }
     static void GetHeavyDinos()
     {
       Console.WriteLine("These are the three heaviest dinosaurs.");
-      DisplayListOfDinos(Db.Dinosaurs.OrderByDescending(dino => dino.Weight).Take(3));
+      DisplayListOfDinos(Db.JurassicParkDb.OrderByDescending(dino => dino.Weight).Take(3));
     }
     static void UnknownCommand()
     {
@@ -100,14 +100,14 @@ namespace welcome_to_jurassic_park
 
       Console.WriteLine($"The newly hatched dinosaur is named {dino.Name}. She weighs {dino.Weight}lbs and is a {dino.DietType}!");
 
-      Db.Dinosaurs.Add(dino);
+      Db.JurassicParkDb.Add(dino);
       Db.SaveChanges();
     }
     static void ReleaseEnclosure()
     {
       Console.WriteLine("Which enclosure would you like to release?");
       var dinoEnclosureNumber = Console.ReadLine();
-      var releaseDino = Db.Dinosaurs.FirstOrDefault(dino => dino.EnclosureNumber == int.Parse(dinoEnclosureNumber));
+      var releaseDino = Db.JurassicParkDb.FirstOrDefault(dino => dino.EnclosureNumber == int.Parse(dinoEnclosureNumber));
       releaseDino.EnclosureNumber = default;
 
       Db.SaveChanges();
@@ -115,7 +115,7 @@ namespace welcome_to_jurassic_park
     static void NeedsASheep()
     {
       Console.WriteLine("Jurassic Park's lightest carnivore is:");
-      DisplayListOfDinos(Db.Dinosaurs.OrderBy(dino => dino.DietType).ThenBy(dino => dino.Weight).Take(1));
+      DisplayListOfDinos(Db.JurassicParkDb.OrderBy(dino => dino.DietType).ThenBy(dino => dino.Weight).Take(1));
       Db.SaveChanges();
     }
     static void QuitProgram()

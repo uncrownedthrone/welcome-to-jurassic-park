@@ -15,7 +15,7 @@ namespace welcome_to_jurassic_park
       foreach (var Dino in Dinosaurs)
       {
         Console.WriteLine($"We have a {Dino.Name}, which is a {Dino.DietType}.");
-        Console.WriteLine($"We got her on {Dino.DateAcquired}. She weighs {Dino.Weight}lbs and is in Enclosure {Dino.EnclosureNumber}");
+        Console.WriteLine($"She on {Dino.DateAcquired}. She weighs {Dino.Weight}lbs and is in Enclosure {Dino.EnclosureNumber}");
       }
     }
     static void DisplayAll()
@@ -58,7 +58,7 @@ namespace welcome_to_jurassic_park
     {
       Console.WriteLine("What's the name of the dinosaur you want to move?");
       var dinoName = Console.ReadLine();
-      Console.WriteLine($"Which enclosure (1, 2, 3, or 4) would you like to put {dinoName} in?");
+      Console.WriteLine($"Which enclosure (1, 2, 3, 4) would you like to put {dinoName} in?");
       var dinoEnclosure = Console.ReadLine();
       var transferDino = Db.JurassicParkDb.FirstOrDefault(dino => dino.Name.ToLower() == dinoName.ToLower());
       transferDino.EnclosureNumber = int.Parse(dinoEnclosure);
@@ -74,12 +74,12 @@ namespace welcome_to_jurassic_park
     }
     static void GetHeavyDinos()
     {
-      Console.WriteLine("These are the three heaviest dinosaurs.");
+      Console.WriteLine("These are the three heaviest dinosaurs at Jurassic Park:");
       DisplayListOfDinos(Db.JurassicParkDb.OrderByDescending(dino => dino.Weight).Take(3));
     }
     static void UnknownCommand()
     {
-      Console.WriteLine("I don't understand that, try another command.");
+      Console.WriteLine("I don't understand that. Try another command.");
     }
     static void HatchDinosaur()
     {
